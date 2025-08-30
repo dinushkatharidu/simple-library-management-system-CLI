@@ -28,6 +28,7 @@ public class LibraryManagementSystem {
             System.out.println("3. Add a member");
             System.out.println("4. Issue a book");
             System.out.println("5. Return a book");
+            System.out.println("6. Find a book");
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
             response = input.nextInt();
@@ -67,7 +68,13 @@ public class LibraryManagementSystem {
                 case 5:
                     System.out.print("Enter Book ID to return: ");
                     int returnId = input.nextInt();
-                    library.returnBook(returnId);
+                     
+                    library.returnBook(returnId);   
+                    break;
+                case 6:
+                    System.out.print("Enter Book KeyWord (name, Auther or ISBN): ");
+                    String keyword = input.next();
+                    library.searchBook(keyword);
                     break;
                 case 0:
                     System.out.println("Thank You!");
@@ -91,7 +98,7 @@ class Member{
     private int memberId;
     private String memberName;
 
-    public String getMemberId() {
+    public int getMemberId() {
         return memberId;
     }
 
@@ -137,10 +144,6 @@ class Book{
         return auther;
     }
 
-    public String getISBN() {
-        return isbn;
-    }
-
     public int getYear() {
         return year;
     }
@@ -161,7 +164,10 @@ class Book{
          isIssued = false; 
      }
 
-    
+    @Override
+    public String toString() {
+        return bookId + " - " + name + " by " + auther + (isIssued ? " [Issued]" : " [Available]");
+    }
 }
 
 class Library{
@@ -212,6 +218,17 @@ class Library{
             }
         }
         System.out.println("Invalid book ID!");
+    }
+    
+    public void searchBook(String keyword){
+        for(Book b : books){
+            if(b.getName().equals(keyword) || b.getAuther().equals(keyword) || b.getIsbn().equals(keyword)){
+                System.out.println(b);
+                return;
+            }
+        }
+          System.out.println("Book not found!");
+        
     }
     
 }
