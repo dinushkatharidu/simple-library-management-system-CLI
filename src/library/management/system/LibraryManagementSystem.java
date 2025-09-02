@@ -29,13 +29,17 @@ public class LibraryManagementSystem {
             System.out.println("4. Issue a book");
             System.out.println("5. Return a book");
             System.out.println("6. Find a book");
+            System.out.println("7. Remove a book");
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
             response = input.nextInt();
+            input.nextLine();
+            System.out.println();
 
             switch (response) {
                 case 1:
                     library.showAllBooks();
+                            
                     break;
                 case 2:
                     System.out.print("Enter Book ID: ");
@@ -68,7 +72,7 @@ public class LibraryManagementSystem {
                 case 5:
                     System.out.print("Enter Book ID to return: ");
                     int returnId = input.nextInt();
-                     
+       
                     library.returnBook(returnId);   
                     break;
                 case 6:
@@ -76,7 +80,13 @@ public class LibraryManagementSystem {
                     String keyword = input.next();
                     library.searchBook(keyword);
                     break;
+                case 7:
+                    System.out.print("Enter Book Name: ");
+                    String title = input.nextLine();
+                    library.removeBook(title);
+                    break;
                 case 0:
+                        
                     System.out.println("Thank You!");
                     break;
                 default:
@@ -229,6 +239,16 @@ class Library{
         }
           System.out.println("Book not found!");
         
+    }
+    
+    public void removeBook(String name) {
+        for (Book book : books) {
+            if (book.getName().equalsIgnoreCase(name)) {
+                books.remove(book);
+                System.out.println("Book removed  " + name); 
+            }
+        }
+        System.out.println("Book not found!");
     }
     
 }
